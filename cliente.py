@@ -15,15 +15,13 @@ class Client:
             self.socket.connect((self.host, self.port))
             self.username = username
             self.connected = True
-            
-            # Enviar registro
+
             register_message = {
                 'type': 'register',
                 'username': username
             }
             self.socket.send(json.dumps(register_message).encode('utf-8'))
-            
-            # Thread para receber mensagens
+
             receive_thread = threading.Thread(target=self.receive_messages)
             receive_thread.daemon = True
             receive_thread.start()
